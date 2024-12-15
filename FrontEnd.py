@@ -1,15 +1,16 @@
-# FrontEnd
+# FrontEnd.py
 
 from Tabuleiro import Tabuleiro
 from Exibicao import Exibicao
 from Persistencia import Persistencia
 
 def iniciar_jogo():
+    # Inicia uma nova partida e gerencia o loop principal do jogo.
     while True:
         Exibicao.mensagem("\nMenu Principal:")
-        Exibicao.mensagem("1. Iniciar Jogo")
-        Exibicao.mensagem("2. Ver Ranking")
-        Exibicao.mensagem("3. Sair")
+        Exibicao.mensagem("1 - Jogar")
+        Exibicao.mensagem("2 - Ver Melhores Pontuações")
+        Exibicao.mensagem("3 - Sair")
 
         opcao = input("Escolha uma opção: ")
 
@@ -23,6 +24,7 @@ def iniciar_jogo():
             Exibicao.mensagem("Opção inválida!")
 
 def jogar():
+    # Inicia uma nova partida e gerencia o loop principal do jogo.
     tabuleiro = Tabuleiro()
     tabuleiro.posicionar_embarcacoes()
 
@@ -49,6 +51,7 @@ def jogar():
     Persistencia.salvar_pontuacao(nome, jogadas)
 
 def mostrar_ranking():
+    # Exibe o ranking das melhores pontuações, ordenado pelo número de jogadas.
     ranking = Persistencia.carregar_ranking()
     Exibicao.mensagem("\nRanking:")
     Exibicao.mensagem("==== Melhores Pontuacões ====")

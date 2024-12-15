@@ -11,28 +11,28 @@ class Tabuleiro:
         self.submarinos_afundados = 0
 
     def posicionar_embarcacoes(self):
-        # Posicionar 5 navios (1 posição cada)
+        # Posiciona 5 navios
         for _ in range(5):
-            self._posicionar_embarcacao(1)
+            self._posicionar_embarcacao(1) # 1 cada posição
 
-        # Posicionar 3 submarinos (2 posições cada)
+        # Posiciona 3 submarinos 
         for _ in range(3):
-            self._posicionar_embarcacao(2)
+            self._posicionar_embarcacao(2) # 2 cada posição
 
     def _posicionar_embarcacao(self, tamanho):
         while True:
-            orientacao = random.choice(["H", "V"])
-            linha = random.randint(0, self.tamanho - 1)
+            orientacao = random.choice(["H", "V"]) # Horizontal ou Vertical.
+            linha = random.randint(0, self.tamanho - 1) 
             coluna = random.randint(0, self.tamanho - 1)
 
             if self._verificar_posicao_disponivel(linha, coluna, tamanho, orientacao):
                 posicoes = []
                 for i in range(tamanho):
                     if orientacao == "H":
-                        self.tabuleiro[linha][coluna + i] = "E"
+                        self.tabuleiro[linha][coluna + i] = "E" # Marca posição como ocupada.
                         posicoes.append((linha, coluna + i))
                     else:
-                        self.tabuleiro[linha + i][coluna] = "E"
+                        self.tabuleiro[linha + i][coluna] = "E" # Marca posição como ocupada.
                         posicoes.append((linha + i, coluna))
                 self.embarcacoes.append(posicoes)
                 break
@@ -54,13 +54,13 @@ class Tabuleiro:
         self.exibir_status()
         self.jogadas += 1
         if self.tabuleiro[linha][coluna] == "E":
-            self.tabuleiro[linha][coluna] = "\u2316"  # X
+            self.tabuleiro[linha][coluna] = "\u2316"  # Marca como atingido.
             self.visivel[linha][coluna] = "\u2316"
-            self._verificar_embarcacao_afundada()
+            self._verificar_embarcacao_afundada() 
             return "Embarcação Atingida"
-        elif self.tabuleiro[linha][coluna] == "\u2316":
+        elif self.tabuleiro[linha][coluna] == "\u2316": 
             return "Embarcação afundada"
-        elif self.tabuleiro[linha][coluna] == "\u2588":
+        elif self.tabuleiro[linha][coluna] == "\u2588":  # Marca como água.
             self.tabuleiro[linha][coluna] = "_"
             self.visivel[linha][coluna] = "_"
             return "Água"
@@ -71,14 +71,14 @@ class Tabuleiro:
                 for linha, coluna in embarcacao:
                     self.tabuleiro[linha][coluna] = "X"
                     self.visivel[linha][coluna] = "X"
-                if len(embarcacao) == 1:
+                if len(embarcacao) == 1: # É um navio
                     self.navios_afundados += 1
                 else:
                     self.submarinos_afundados += 1
                 self.embarcacoes.remove(embarcacao)
 
     def todas_embarcacoes_afundadas(self):
-        return all(
+        return all( # all items in an iterable are true
             self.tabuleiro[linha][coluna] != "E"
             for linha in range(self.tamanho)
             for coluna in range(self.tamanho)

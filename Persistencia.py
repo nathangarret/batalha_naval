@@ -1,20 +1,20 @@
-# Persistência
+# Persistencia.py
 
 import os
 
 class Persistencia:
-    ARQUIVO_RANKING = "ranking.txt"
+    ARQ_RANKING = "ranking.txt" # Nome do arquivo onde o ranking será armazenado.
 
     @staticmethod
     def salvar_pontuacao(nome, pontuacao):
-        with open(Persistencia.ARQUIVO_RANKING, "a") as arquivo:
+        with open(Persistencia.ARQ_RANKING, "a") as arquivo:
             arquivo.write(f"{nome} {pontuacao}\n")
 
     @staticmethod
     def carregar_ranking():
-        if not os.path.exists(Persistencia.ARQUIVO_RANKING):
-            return []
+        if not os.path.exists(Persistencia.ARQ_RANKING): # Verifica se o arquivo existe.
+            return [] # Retorna uma lista vazia se o arquivo não for encontrado.
 
-        with open(Persistencia.ARQUIVO_RANKING, "r") as arquivo:
+        with open(Persistencia.ARQ_RANKING, "r") as arquivo:
             linhas = arquivo.readlines()
-        return [linha.strip().split(maxsplit=1) for linha in linhas]
+        return [linha.strip().split(maxsplit=1) for linha in linhas] # Divide cada linha em nome e pontuação.
